@@ -38,6 +38,8 @@ void	ft_error_msg(char *str, t_philo *a)
 		write(1, &str[i], 1);
 		i++;
 	}
+	write(1, "\n", 1);
+	exit (1);
 }
 
 void	ft_freelist(t_philo	**a)
@@ -48,13 +50,30 @@ void	ft_freelist(t_philo	**a)
 	if (a == NULL)
 		return ;
 	dupl = *a;
-	printf("Entra a liberar en el main\n");
 	while (dupl)
 	{
-		printf("libear en main\n");
 		aux = dupl->next;
 		free(dupl);
 		dupl = aux;
 	}
 	*a = NULL;
+}
+void	error_msg(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	write(1, "\n", 1);
+	exit (1);
+}
+
+void	error_exit(const char *error)
+{
+	printf(RED" %s \n"RST, error);
+	exit(EXIT_FAILURE);
 }
