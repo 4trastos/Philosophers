@@ -38,3 +38,21 @@ int	ft_checker(char **argv)
 	}
 	return (1);
 }
+
+int	ft_checkerphilo(char **argv)
+{
+	int numb;
+
+	if ((numb = ft_atoi(argv[1]) == 0))
+		return (0);
+	else if ((numb = ft_atoi(argv[2]) == 0))
+		return (0);
+	else if ((numb = ft_atoi(argv[3]) == 0))
+		return (0);
+	else if ((numb = ft_atoi(argv[4]) == 0))
+		return (0);
+	else if ((numb = ft_atoi(argv[5]) == 0))
+		return (0);
+	else
+		return (1);
+}
