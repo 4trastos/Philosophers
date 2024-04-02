@@ -17,7 +17,7 @@ void	ft_leaks(void)
 	system("leaks -q philo");
 }
 
-void	init_philosophers(t_philo **a)
+void	ft_dinner_init(t_philo **a)
 {
 	t_philo	*aux;
 
@@ -27,16 +27,20 @@ void	init_philosophers(t_philo **a)
 int	main(int argc, char **argv)
 {
 	t_philo	*a;
+	t_philo_test	*test;
 
 	atexit(ft_leaks);
 	a = NULL;
 	if (argc == 5 || argc == 6)
 	{
+		test = ft_new_test(argc, argv);
 		ft_parse(argv, argc);
-		ft_stackphilo(&a, argc, argv);
-		init_philosophers(&a);
+		ft_stackphilo(test, &a, argc, argv);
+		ft_data_init(test, &a);
+		ft_dinner_init(&a);
 		printlist(&a);
 		ft_freelist(&a);
+		free(test);
 	}
 	else
 	{
