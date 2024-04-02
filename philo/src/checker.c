@@ -12,6 +12,11 @@
 
 #include "../incl/philo.h"
 
+bool	is_space(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
+
 int	ft_is_number(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -21,13 +26,15 @@ int	ft_is_number(char c)
 
 int	ft_checker(char **argv)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (argv[i] != NULL)
 	{
 		j = 0;
+		while (is_space(argv[i][j]))
+			j++;
 		while (argv[i][j] != '\0')
 		{
 			if (ft_is_number(argv[i][j]) == 1)
