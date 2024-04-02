@@ -30,20 +30,18 @@ int	main(int argc, char **argv)
 
 	atexit(ft_leaks);
 	a = NULL;
-	if (argc == 1)
-		ft_error_msg("arguments are necessary!", a);
-	else if (argc < 5 || argc > 6)
-		ft_error_msg("Invalid number of arguments!", a);
+	if (argc == 5 || argc == 6)
+	{
+		ft_parse(argv, argc);
+		ft_stackphilo(&a, argc, argv);
+		init_philosophers(&a);
+		printlist(&a);
+		ft_freelist(&a);
+	}
 	else
 	{
-		if (!(ft_checker(argv)))
-			ft_error_msg("Invalid arguments!", a);
-		if (!(ft_checkerphilo(argv)))
-			ft_error_msg("Invalid values!", a);
-		ft_stackphilo(&a, argc, argv);
+		error_exit("🚨 Wrong input: 🚨\n"
+			G"✅ ./philo 5 800 200 200 [7] ✅\n"RST);
 	}
-	init_philosophers(&a);
-	printlist(&a);
-	ft_freelist(&a);
 	return (0);
 }
