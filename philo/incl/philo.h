@@ -50,28 +50,30 @@ int					main(int argc, char **argv);
 
 //*** ERRORS ****
 
-void				ft_error_msg(char *str, t_philo *a);
-void				free_matrix(t_philo **a);
-void				ft_freelist(t_philo **a);
+void					ft_error_msg(char *str, t_philo *a);
+void					free_matrix(t_philo **a);
+void					ft_freelist(t_philo **a);
 
 //*** CHECKER ****
 
 int					ft_checker(char **argv);
+int					ft_is_numer(char c);
+int					ft_checkerphilo(char **argv);
 
 //*** PHILO ****
 
-void				ft_argcount(t_philo *a, int arc, char **argv);
+void					ft_argcount(t_philo *a, int arc, char **argv);
 
 //*** NODES ****
 
-void				ft_stackphilo(t_philo **a, int arc, char **argv);
-t_philo				*ft_createnode(int id, t_philo_test *aux);
-t_philo_test		*ft_new_test(int arc, char **argv);
-void				ft_stacknode(t_philo **a, t_philo *new);
+void					ft_stackphilo(t_philo **a, int arc, char **argv);
+t_philo					*ft_createnode(int id, t_philo_test *aux);
+t_philo_test				*ft_new_test(int arc, char **argv);
+void					ft_stacknode(t_philo **a, t_philo *new);
 
 //*** AUXILIARS ****
 
 int					ft_atoi(char *str);
-void				printlist(t_philo **a);
+void					printlist(t_philo **a);
 
 #endif
