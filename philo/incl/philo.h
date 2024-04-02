@@ -53,13 +53,13 @@ typedef pthread_mutex_t	t_mtx;
 typedef struct s_fork
 {
 	t_mtx			fork;
-	int				fork_id;
+	int			fork_id;
 }	t_fork;
 
 typedef struct s_philo
 {
-	int				id;
-	int				fork;
+	int			id;
+	int			fork;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -74,8 +74,8 @@ typedef struct s_philo
 
 typedef struct s_philo_test
 {
-	int				id;
-	int				fork;
+	int			id;
+	int			fork;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -87,7 +87,7 @@ typedef struct s_philo_test
 
 //*** INIT ****
 
-int					main(int argc, char **argv);
+int				main(int argc, char **argv);
 
 //*** ERRORS ****
 
@@ -100,9 +100,9 @@ void				error_msg(char *str);
 
 //*** CHECKER ****
 
-int					ft_checker(char **argv);
-int					ft_is_numer(char c);
-int					ft_checkerphilo(char **argv, int argc);
+int				ft_checker(char **argv);
+int				ft_is_numer(char c);
+int				ft_checkerphilo(char **argv, int argc);
 bool				is_space(char c);
 
 //*** PHILO ****
@@ -115,7 +115,7 @@ void				ft_dinner_init(t_philo **a);
 
 void				ft_stackphilo(t_philo_test	*test, t_philo **a, int arc, char **argv);
 t_philo				*ft_createnode(int id, int fork,  t_philo_test *aux);
-t_philo_test		*ft_new_test(int arc, char **argv);
+t_philo_test			*ft_new_test(int arc, char **argv);
 void				ft_stacknode(t_philo **a, t_philo *new);
 
 //*** AUXILIARS ****
