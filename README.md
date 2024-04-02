@@ -11,6 +11,7 @@
 
 - No pruebes con más de 200 filósofos.
 - No realice la prueba con time_to_die o time_to_eat o time_to_sleep configurados en valores inferiores a 60 ms.
+- Prueba que no supera el INT_MAX.
 - Prueba 1 800 200 200. El filósofo no debe comer y debe morir.
 - Prueba 5 800 200 200. Ningún filósofo debería morir.
 - Prueba 5 800 200 200 7. Ningún filósofo debería morir y la simulación debería detenerse cuando cada filósofo haya comido al menos 7 veces.
