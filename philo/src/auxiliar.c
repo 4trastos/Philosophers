@@ -12,19 +12,6 @@
 
 #include "../incl/philo.h"
 
-void	printlist(t_philo **a)
-{
-	t_philo	*aux;
-
-	aux = *a;
-	printf("dentro de stackphilo:\n");
-	while (aux != NULL)
-	{
-		printf("%d\n", aux->id);
-		aux = aux->next;
-	}
-}
-
 long	ft_atoi(char *str)
 {
 	long	i;
@@ -42,4 +29,31 @@ long	ft_atoi(char *str)
 	if (result > INT_MAX)
 		return (0);
 	return (result);
+}
+
+void	mutex_handle(t_mtx *mutex, t_opcode opcode)
+{
+	if (opcode == LOCK)
+		pthread_mutex_lock(mutex);
+	else if (opcode == UNLOCK)
+		pthread_mutex_unlock(mutex);
+	else if (opcode == INIT)
+		pthread_mutex_init(mutex, NULL);
+	else if (opcode == DESTROY)
+		pthread_mutex_destroy(mutex);
+	else
+		error_msg("🚨 Wrogn opcode for mutex handle 🚨\n");
+}
+
+void	printlist(t_philo **a)
+{
+	t_philo	*aux;
+
+	aux = *a;
+	while (aux != NULL)
+	{
+		printf("Número de Filósofo: %d\n", aux->id);
+		printf("Número de tenedor: %d\n", aux->fork);
+		aux = aux->next;
+	}
 }
