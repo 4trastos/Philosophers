@@ -90,6 +90,7 @@ void				error_msg(char *str);
 int				ft_checker(char **argv);
 int				ft_is_numer(char c);
 int				ft_checkerphilo(char **argv, int argc);
+bool				is_space(char c);
 
 //*** PHILO ****
 
