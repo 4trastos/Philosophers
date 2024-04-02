@@ -65,22 +65,20 @@ t_philo	*ft_createnode(int id, t_philo_test *aux)
 	return (new);
 }
 
-void	ft_stackphilo(t_philo *a,int arc, char **argv)
+void	ft_stackphilo(t_philo **a, int arc, char **argv)
 {
 	t_philo_test	*aux;
-	int id;
-	int	philo;
+	int				id;
+	int				philo;
 
 	aux = ft_new_test(arc, argv);
 	id = 1;
 	philo = ft_atoi(argv[1]);
-	while (id <= philo)
+	while (philo > 0)
 	{
-		printf("Entra a stack\n");
-		ft_stacknode(&a, ft_createnode(id, aux));
+		ft_stacknode(a, ft_createnode(id, aux));
 		id++;
+		philo--;
 	}
-	/* printlist(&a);
-	free_matrix(&a); */
 	free(aux);
 }
