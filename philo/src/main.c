@@ -38,6 +38,8 @@ int	main(int argc, char **argv)
 	{
 		if (!(ft_checker(argv)))
 			ft_error_msg("Invalid arguments!", a);
+		if (!(ft_checkerphilo(argv)))
+			ft_error_msg("Invalid values!", a);
 		ft_stackphilo(&a, argc, argv);
 	}
 	init_philosophers(&a);
