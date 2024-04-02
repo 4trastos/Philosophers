@@ -68,17 +68,20 @@ void	ft_stackphilo(t_philo **a, int arc, char **argv)
 {
 	t_philo_test	*aux;
 	int				id;
+	int				fork;
 	int				philo;
 
 	aux = ft_new_test(arc, argv);
 	id = 1;
+	fork = 0;
 	philo = ft_atoi(argv[1]);
 	if (philo > 200)
 		ft_error_msg("Too many philosophers!", *a);
 	while (philo > 0)
 	{
-		ft_stacknode(a, ft_createnode(id, aux));
+		ft_stacknode(a, ft_createnode(id, fork, aux));
 		id++;
+		fork++;
 		philo--;
 	}
 	free(aux);
