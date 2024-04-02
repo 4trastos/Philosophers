@@ -35,6 +35,8 @@ int	ft_checker(char **argv)
 		j = 0;
 		while (is_space(argv[i][j]))
 			j++;
+		if (argv[i][j] == '+')
+			j++;
 		while (argv[i][j] != '\0')
 		{
 			if (ft_is_number(argv[i][j]) == 1)
