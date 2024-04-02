@@ -19,16 +19,44 @@
 # include <limits.h>
 # include <string.h>
 # include <stdbool.h>
+# include <pthread.h>
+# include <sys/time.h>
+
+/*
+ * PHILO
+ *
+ * ./philo 5 800 200 200 [5]
+*/
+
+# define RST    "\033[0m"      /* Reset to default color */
+# define RED	"\033[1;31m"   /* Bold Red */
+# define G      "\033[1;32m"   /* Bold Green */
+# define Y      "\033[1;33m"   /* Bold Yellow */
+# define B      "\033[1;34m"   /* Bold Blue */
+# define M      "\033[1;35m"   /* Bold Magenta */
+# define C      "\033[1;36m"   /* Bold Cyan */
+# define W      "\033[1;37m"   /* Bold White */
+
+typedef pthread_mutex_t t_mtx;
+
+typedef struct s_fork
+{
+	t_mtx			fork;
+	int				fork_id;
+}	t_fork;
 
 typedef struct s_philo
 {
 	int				id;
 	int				fork;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				numb_phy;
-	int				number_of_times;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			philo_number;
+	long			number_of_times;
+	long			meals_counter;
+	long			last_meal_time;
+	bool			full;
 	struct s_philo	*next;
 	struct s_philo	*prev;
 }	t_philo;
@@ -37,11 +65,11 @@ typedef struct s_philo_test
 {
 	int				id;
 	int				fork;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				number_of_times;
-	int				numb_phy;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			number_of_times;
+	long			philo_number;
 }	t_philo_test;
 
 //*** INIT ****
@@ -50,30 +78,33 @@ int					main(int argc, char **argv);
 
 //*** ERRORS ****
 
-void					ft_error_msg(char *str, t_philo *a);
-void					free_matrix(t_philo **a);
-void					ft_freelist(t_philo **a);
+void				ft_error_msg(char *str, t_philo *a);
+void				free_matrix(t_philo **a);
+void				ft_freelist(t_philo **a);
+void				error_exit(const char *error);
+void				ft_parse(char **argv, int argc);
+void				error_msg(char *str);
 
 //*** CHECKER ****
 
 int					ft_checker(char **argv);
 int					ft_is_numer(char c);
-int					ft_checkerphilo(char **argv);
+int					ft_checkerphilo(char **argv, int argc);
 
 //*** PHILO ****
 
-void					ft_argcount(t_philo *a, int arc, char **argv);
+void				ft_argcount(t_philo *a, int arc, char **argv);
 
 //*** NODES ****
 
-void					ft_stackphilo(t_philo **a, int arc, char **argv);
-t_philo					*ft_createnode(int id, int fork,  t_philo_test *aux);
-t_philo_test				*ft_new_test(int arc, char **argv);
-void					ft_stacknode(t_philo **a, t_philo *new);
+void				ft_stackphilo(t_philo **a, int arc, char **argv);
+t_philo				*ft_createnode(int id, int fork,  t_philo_test *aux);
+t_philo_test		*ft_new_test(int arc, char **argv);
+void				ft_stacknode(t_philo **a, t_philo *new);
 
 //*** AUXILIARS ****
 
-int					ft_atoi(char *str);
-void					printlist(t_philo **a);
+long				ft_atoi(char *str);
+void				printlist(t_philo **a);
 
 #endif
