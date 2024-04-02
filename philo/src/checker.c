@@ -72,7 +72,7 @@ int	ft_checkerphilo(char **argv, int argc)
 void	ft_parse(char **argv, int argc)
 {
 	if (!(ft_checker(argv)))
-		error_msg("🚨 Invalid arguments! 🚨\n");
+		error_msg("🚨 The input is not a correct digit! 🚨\n");
 	if (!(ft_checkerphilo(argv, argc)))
-		error_msg("🚨 Invalid values! 🚨\n");
+		error_msg("🚨 The input is not a correct digit! 🚨\n");
 }
