@@ -19,7 +19,6 @@ t_philo_test	*ft_new_test(int arc, char **argv)
 	new = (t_philo_test *)malloc(sizeof(t_philo_test));
 	if (!new)
 		return (NULL);
-	new->fork = ft_atoi(argv[1]);
 	new->numb_phy = ft_atoi(argv[1]);
 	new->time_to_die = ft_atoi(argv[2]);
 	new->time_to_eat = ft_atoi(argv[3]);
@@ -46,15 +45,15 @@ void	ft_stacknode(t_philo **a, t_philo *new)
 	new->next = NULL;
 }
 
-t_philo	*ft_createnode(int id, t_philo_test *aux)
+t_philo	*ft_createnode(int id, int fork, t_philo_test *aux)
 {
 	t_philo	*new;
 
-	new = (t_philo*)malloc(sizeof(t_philo));
+	new = (t_philo *)malloc(sizeof(t_philo));
 	if (!new)
 		return (NULL);
 	new->id = id;
-	new->fork = aux->fork;
+	new->fork = fork;
 	new->numb_phy = aux->numb_phy;
 	new->time_to_die = aux->time_to_die;
 	new->time_to_eat = aux->time_to_eat;
