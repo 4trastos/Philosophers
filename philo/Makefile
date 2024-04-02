@@ -24,7 +24,8 @@ SRC = src/main.c \
 	  src/error.c \
 	  src/checker.c \
 	  src/create_nodes.c \
-	  src/auxiliar.c
+	  src/auxiliar.c \
+	  src/init.c
 
 OBJS = $(SRC:.c=.o)
 
