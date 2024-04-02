@@ -20,11 +20,13 @@ t_philo_test	*ft_new_test(int arc, char **argv)
 	if (!new)
 		return (NULL);
 	new->philo_number = ft_atoi(argv[1]);
-	new->time_to_die = ft_atoi(argv[2]);
-	new->time_to_eat = ft_atoi(argv[3]);
-	new->time_to_sleep = ft_atoi(argv[4]);
+	new->time_to_die = ft_atoi(argv[2]) * 1e3;
+	new->time_to_eat = ft_atoi(argv[3]) * 1e3;
+	new->time_to_sleep = ft_atoi(argv[4]) * 1e3;
 	if (arc == 6)
 		new->number_of_times = ft_atoi(argv[5]);
+	else
+		new->number_of_times = -1;
 	return (new);
 }
 
@@ -64,14 +66,13 @@ t_philo	*ft_createnode(int id, int fork, t_philo_test *test)
 	return (new);
 }
 
-void	ft_stackphilo(t_philo **a, int arc, char **argv)
+void	ft_stackphilo(t_philo_test	*test, t_philo **a, int arc, char **argv)
 {
-	t_philo_test	*test;
+	(void)arc;
 	int				id;
 	int				fork;
 	int				philo;
 
-	test = ft_new_test(arc, argv);
 	id = 1;
 	fork = 0;
 	philo = ft_atoi(argv[1]);
@@ -84,5 +85,4 @@ void	ft_stackphilo(t_philo **a, int arc, char **argv)
 		fork++;
 		philo--;
 	}
-	free(test);
 }
