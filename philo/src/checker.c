@@ -59,3 +59,11 @@ int	ft_checkerphilo(char **argv, int argc)
 	else
 		return (1);
 }
+
+void	ft_parse(char **argv, int argc)
+{
+	if (!(ft_checker(argv)))
+		error_msg("🚨 Invalid arguments! 🚨\n");
+	if (!(ft_checkerphilo(argv, argc)))
+		error_msg("🚨 Invalid values! 🚨\n");
+}
