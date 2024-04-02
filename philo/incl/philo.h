@@ -67,7 +67,7 @@ void					ft_argcount(t_philo *a, int arc, char **argv);
 //*** NODES ****
 
 void					ft_stackphilo(t_philo **a, int arc, char **argv);
-t_philo					*ft_createnode(int id, t_philo_test *aux);
+t_philo					*ft_createnode(int id, int fork,  t_philo_test *aux);
 t_philo_test				*ft_new_test(int arc, char **argv);
 void					ft_stacknode(t_philo **a, t_philo *new);
 
