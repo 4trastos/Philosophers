@@ -25,17 +25,21 @@ void	printlist(t_philo **a)
 	}
 }
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	int	i;
-	int	result;
+	long	i;
+	long	result;
 
 	i = 0;
 	result = 0;
+	if (str[i] == '+')
+		i++;
 	while (str[i] != '\0')
 	{
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
+	if (result > INT_MAX)
+		return (0);
 	return (result);
 }
