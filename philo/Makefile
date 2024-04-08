@@ -23,9 +23,10 @@ LIB = ar rcs
 SRC = src/main.c \
 	  src/error.c \
 	  src/checker.c \
-	  src/create_nodes.c \
+	  src/data_init.c \
 	  src/auxiliar.c \
-	  src/init.c
+	  src/init.c \
+	  src/safe_funtions.c
 
 OBJS = $(SRC:.c=.o)
 
