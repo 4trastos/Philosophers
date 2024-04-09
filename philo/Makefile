@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: davgalle <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 11:35:32 by davgalle          #+#    #+#              #
-#    Updated: 2024/04/01 18:10:35 by davgalle         ###   ########.fr        #
+#    Updated: 2024/04/09 14:40:09 by davgalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = src/main.c \
 	  src/data_init.c \
 	  src/auxiliar.c \
 	  src/init.c \
-	  src/safe_funtions.c
+	  src/threads.c \
+	  src/threads_sync.c
 
 OBJS = $(SRC:.c=.o)
 
