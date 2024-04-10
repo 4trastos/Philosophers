@@ -52,7 +52,6 @@ typedef enum e_status
 	DIED,
 }			t_philo_status;
 
-
 typedef enum e_opcode
 {
 	LOCK,
@@ -69,10 +68,10 @@ typedef enum e_time_code
 	SECONDS,
 	MILLISECOND,
 	MICROSECOND,
-}		t_time_code;
+}	t_time_code;
 
 typedef pthread_mutex_t	t_mutex;
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_fork
 {
@@ -139,6 +138,7 @@ void				eat_start(t_table *table);
 void				assign_forks(t_philo *philo, t_fork *forks, int id);
 void				philo_init(t_table *table);
 void				*unique_philo(void *arg);
+void				eat(t_philo *philo);
 
 //*** NODES ****
 
@@ -149,9 +149,11 @@ void				ft_stacknode(t_philo **a, t_philo *new);
 
 long				ft_atoi(char *str);
 
-//*** MUTEX ****
+//*** ROUTINE ****
 
 void				*philo_routine(t_table *table);
+void				*eat_simulation(void *data);
+void				eat(t_philo *philo);
 
 //*** MUTEX ****
 
@@ -163,5 +165,12 @@ void				ft_threads(pthread_t *thread, void *(*foo)(void *),
 //*** BOOL ****
 
 bool				get_bool(t_mutex *mutex, bool *value);
+bool    			simulation_finished(t_table *table);
+
+//*** THREADS ****
+
+void				wait_all_threads(t_table *table);
+void				set_long(t_mutex *mutex, long *dest, long value);
+void				increase_long(t_mutex *mutex, long *value);
 
 #endif
