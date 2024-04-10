@@ -27,7 +27,8 @@ SRC = src/main.c \
 	  src/auxiliar.c \
 	  src/init.c \
 	  src/threads.c \
-	  src/threads_sync.c
+	  src/threads_sync.c \
+	  src/simulations.c
 
 OBJS = $(SRC:.c=.o)
 
