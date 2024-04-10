@@ -12,7 +12,31 @@
 
 #include "../incl/philo.h"
 
+bool	get_bool(t_mutex *mutex, bool *value)
+{
+	bool	ret;
+
+	ft_mutex(mutex, LOCK);
+	ret = *value;
+	ft_mutex(mutex, UNLOCK);
+	return (ret);
+}
+
 void    wait_all_threads(t_table *table)
 {
     while (!get_bool(&table->table_mutex, &table->all_threads_ready));
+}
+
+void	set_long(t_mutex *mutex, long *dest, long value)
+{
+	ft_mutex(mutex, LOCK);
+	*dest = value;
+	ft_mutex(mutex, UNLOCK);
+}
+
+void	increase_long(t_mutex *mutex, long *value)
+{	
+	ft_mutex(mutex, LOCK);
+	(*value)++;
+	ft_mutex(mutex, UNLOCK);
 }
