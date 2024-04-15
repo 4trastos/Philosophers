@@ -6,22 +6,22 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:17:10 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/11 20:09:15 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:39:33 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	ft_leaks(void)
+/* void	ft_leaks(void)
 {
 	system("leaks -q philo");
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	atexit(ft_leaks);
+/* 	atexit(ft_leaks); */
 	if (argc == 5 || argc == 6)
 	{
 		parse_input(argv, argc);

@@ -6,7 +6,7 @@
 #    By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 11:35:32 by davgalle          #+#    #+#              #
-#    Updated: 2024/04/11 19:29:07 by davgalle         ###   ########.fr        #
+#    Updated: 2024/04/15 15:21:42 by davgalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=thread
 
 RM = rm -f
 

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 09:07:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/11 15:51:23 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:35:29 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,27 @@ void	*safe_malloc(size_t bytes)
 	return (ret);
 }
 
-void	ft_mutex(t_mutex *mutex, t_opcode opcode)
+void	ft_threads_error(int status, t_opcode opcode)
 {
-	if (opcode == LOCK)
-		ft_mutex_error(pthread_mutex_lock(mutex), opcode);
-	else if (opcode == UNLOCK)
-		ft_mutex_error(pthread_mutex_unlock(mutex), opcode);
-	else if (opcode == INIT)
-		ft_mutex_error(pthread_mutex_init(mutex, NULL), opcode);
-	else if (opcode == DESTROY)
-		ft_mutex_error(pthread_mutex_destroy(mutex), opcode);
-	else
-		error_msg("🚨 Wrong opcode for mutex handle "
-			" use <LOCK> <UNLOCK> <INIT> <DESTROY> 🚨\n");
+	if (status == 0)
+		return ;
+	if (status == EAGAIN)
+		error_exit("No resources to create another thread");
+	else if (status == EPERM)
+		error_exit("The caller does not have appropriate permission\n");
+	else if (status == EINVAL && opcode == CREATE)
+		error_exit("The value specified by attr is invalid.");
+	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
+		error_exit("The value specified by thread is not joinable\n");
+	else if (status == ESRCH)
+		error_exit("No thread could be found corresponding to that"
+			"specified by the given thread ID, thread.");
+	else if (status == EDEADLK)
+		error_exit("A deadlock was detected or the value of"
+			"thread specifies the calling thread.");
 }
 
-void	ft_mutex_error(int status, t_opcode opcode) //Errores en los mutex
+void	ft_mutex_error(int status, t_opcode opcode)
 {
 	if (status == 0)
 		return ;
@@ -71,22 +76,17 @@ void	ft_threads(pthread_t *thread, void *(*foo)(void *),
 			" use <CREATE> <JOIN> <DETACH> 🚨\n");
 }
 
-void	ft_threads_error(int status, t_opcode opcode) //errores en los hilos
+void	ft_mutex(t_mutex *mutex, t_opcode opcode)
 {
-	if (status == 0)
-		return ;
-	if (status == EAGAIN)
-		error_exit("No resources to create another thread");
-	else if (status == EPERM)
-		error_exit("The caller does not have appropriate permission\n");
-	else if (status == EINVAL && opcode == CREATE)
-		error_exit("The value specified by attr is invalid.");
-	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
-		error_exit("The value specified by thread is not joinable\n");
-	else if (status == ESRCH)
-		error_exit("No thread could be found corresponding to that"
-			"specified by the given thread ID, thread.");
-	else if (status == EDEADLK)
-		error_exit("A deadlock was detected or the value of"
-			"thread specifies the calling thread.");
+	if (opcode == LOCK)
+		ft_mutex_error(pthread_mutex_lock(mutex), opcode);
+	else if (opcode == UNLOCK)
+		ft_mutex_error(pthread_mutex_unlock(mutex), opcode);
+	else if (opcode == INIT)
+		ft_mutex_error(pthread_mutex_init(mutex, NULL), opcode);
+	else if (opcode == DESTROY)
+		ft_mutex_error(pthread_mutex_destroy(mutex), opcode);
+	else
+		error_msg("🚨 Wrong opcode for mutex handle "
+			" use <LOCK> <UNLOCK> <INIT> <DESTROY> 🚨\n");
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:18:47 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/11 20:16:02 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:57:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <errno.h>
+# include <time.h>
 
 /*
  * PHILO
@@ -104,7 +105,7 @@ struct s_table
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			nbr_limit_meals;
-	long			philo_number;
+	long			philos_number;
 	long			start_routine;
 	bool			end_routine;
 	bool			all_threads_ready;
@@ -136,6 +137,7 @@ int					ft_checker(char **argv);
 int					ft_is_numer(char c);
 int					ft_checkerphilo(char **argv, int argc);
 bool				is_space(char c);
+long    			get_long(t_mutex *mutex, long *value);
 
 //*** PHILO ****
 
@@ -144,8 +146,9 @@ void				data_init(t_table *table, int argc, char **argv);
 void				eat_start(t_table *table);
 void				assign_forks(t_philo *philo, t_fork *forks, int id);
 void				philo_init(t_table *table);
-void				*unique_philo(void *arg);
+void				*unique_philo(void *data);
 void				eat(t_philo *philo);
+bool				philo_died(t_philo *philo);
 
 //*** NODES ****
 
@@ -159,6 +162,7 @@ long				ft_atoi(char *str);
 //*** SYNCHROS ****
 
 long				get_time(int time_code);
+void				synchro_philos(t_philo *philo);
 
 //*** ROUTINE ****
 
@@ -166,6 +170,7 @@ void				*philo_routine(void *data);
 void				philo_is_eating(t_philo *philo);
 void				philo_is_sleeping(long sleep_time, t_table *table);
 void				philo_is_thinking(t_philo *philo, bool pre_routine);
+void				*monitor_eating(void *data);
 
 //*** MUTEX ****
 
@@ -184,10 +189,12 @@ void				set_bool(t_mutex *mutex, bool *dest, bool value);
 
 void				wait_all_threads(t_table *table);
 void				set_long(t_mutex *mutex, long *dest, long value);
-void				increase_long(t_mutex *mutex, long *value);
+void				increase_threads(t_mutex *mutex, long *value);
+bool				all_threads_running(t_mutex *muex, long *threads, long philo_number);
 
 //*** WRITE ****
 
-void				write_status(t_philo_status status, t_philo *philo);
+void				write_status(t_philo_status status, t_philo *philo, bool debug);
+void    			write_status_debug(t_philo_status status, t_philo *philo, long time_elapsed);
 
 #endif

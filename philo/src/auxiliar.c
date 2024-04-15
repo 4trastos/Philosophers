@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:36:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/11 18:19:35 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:03:33 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ long	ft_atoi(char *str)
 	return (result);
 }
 
-long	get_time(int time_code) // Para sincronizar las rutinas de los philos. Se Utiliza el tiempo actual para programar diferentes hilos.
+long	get_time(int time_code)
 {
 	struct timeval	tv;
 
