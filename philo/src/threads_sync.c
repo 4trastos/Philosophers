@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:45:03 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/15 19:54:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:13:16 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ void	set_long(t_mutex *mutex, long *dest, long value)
 	ft_mutex(mutex, UNLOCK);
 }
 
-void	increase_threads(t_mutex *mutex, long *value)
+void	numbers_threads(t_mutex *mutex, long *value)
 {	
-	long i;
-
-	i = *value;
 	ft_mutex(mutex, LOCK);
-	i++;
+	(*value)++;
 	ft_mutex(mutex, UNLOCK);
 }
 

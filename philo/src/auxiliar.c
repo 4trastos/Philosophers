@@ -6,11 +6,21 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:36:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/15 16:03:33 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:56:15 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
+
+void	*safe_malloc(size_t bytes)
+{
+	void	*ret;
+
+	ret = malloc(bytes);
+	if (!ret)
+		error_exit("Error with the malloc");
+	return (ret);
+}
 
 long	ft_atoi(char *str)
 {
@@ -27,14 +37,11 @@ long	ft_atoi(char *str)
 		i++;
 	}
 	if (result > INT_MAX)
-	{
-		printf("Te has pasado: %ld\n", result);
 		return (0);
-	}
 	return (result);
 }
 
-long	get_time(int time_code)
+long	world_clock(int time_code)
 {
 	struct timeval	tv;
 

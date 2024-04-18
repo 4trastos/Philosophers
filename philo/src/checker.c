@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:39:37 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/06 19:35:18 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:57:40 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_checkerphilo(char **argv, int argc)
 
 	if (argc == 6)
 	{
-		if ((numb = ft_atoi(argv[5]) < 60))
+		if ((numb = ft_atoi(argv[5]) <= 0))
 			return (0);
 		return (1);
 	}

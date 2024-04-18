@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:38:04 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/15 20:03:18 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:39:39 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	error_exit(const char *error)
 
 long    get_long(t_mutex *mutex, long *value)
 {
-	bool	aux;
+	long	aux;
+
 	ft_mutex(mutex, LOCK);
 	aux = *value;
 	ft_mutex(mutex, UNLOCK);
@@ -47,14 +48,15 @@ void	clean_all(t_table *table)
 	int		i;
 
 	i = -1;
-	while (i <= table->philos_number)
+	while (++i < table->philos_number)
 	{
 		philo = table->philos + i;
 		ft_mutex(&philo->philo_mutex, DESTROY);
-		i++;
 	}
 	ft_mutex(&table->write_mutex, DESTROY);
 	ft_mutex(&table->table_mutex, DESTROY);
+	ft_mutex(&table->dead_mutex, DESTROY);
+	ft_mutex(&table->meals_counter_mutex, DESTROY);
 	free(table->forks);
 	free(table->philos);
 }
@@ -62,13 +64,16 @@ void	clean_all(t_table *table)
 bool	philo_died(t_philo *philo)
 {
 	long	time_elapsed;
-	long	to_die;
 
-	if (get_bool(&philo->philo_mutex, &philo->full))
-		return (false);
-	time_elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex, &philo->last_meal_time);
-	to_die  = philo->table->time_to_die / 1e3;
-	if (time_elapsed > to_die)
+	if (philo->table->nbr_limit_meals > 0)
+	{
+		if (!get_bool(&philo->philo_mutex, &philo->full))
+			return (false);
+	}
+	ft_mutex(&philo->table->dead_mutex, LOCK);
+	time_elapsed = world_clock(MILLISECOND) - get_long(&philo->philo_mutex, &philo->last_meal_time);
+	ft_mutex(&philo->table->dead_mutex, UNLOCK);
+	if (time_elapsed > philo->table->time_to_die)
 		return (true);
 	return (false);
 }

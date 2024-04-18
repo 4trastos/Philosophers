@@ -6,71 +6,21 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 09:07:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/15 18:35:29 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:23:00 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	*safe_malloc(size_t bytes)
-{
-	void	*ret;
-
-	ret = malloc(bytes);
-	if (!ret)
-		error_exit("Error with the malloc");
-	return (ret);
-}
-
-void	ft_threads_error(int status, t_opcode opcode)
-{
-	if (status == 0)
-		return ;
-	if (status == EAGAIN)
-		error_exit("No resources to create another thread");
-	else if (status == EPERM)
-		error_exit("The caller does not have appropriate permission\n");
-	else if (status == EINVAL && opcode == CREATE)
-		error_exit("The value specified by attr is invalid.");
-	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
-		error_exit("The value specified by thread is not joinable\n");
-	else if (status == ESRCH)
-		error_exit("No thread could be found corresponding to that"
-			"specified by the given thread ID, thread.");
-	else if (status == EDEADLK)
-		error_exit("A deadlock was detected or the value of"
-			"thread specifies the calling thread.");
-}
-
-void	ft_mutex_error(int status, t_opcode opcode)
-{
-	if (status == 0)
-		return ;
-	if (status == EINVAL && (opcode == LOCK || opcode == UNLOCK))
-		error_exit("The value specified by mutex is invalid");
-	else if (status == EINVAL && opcode == INIT)
-		error_exit("The value specified by attr is invalid.");
-	else if (status == EDEADLK)
-		error_exit("A deadlock would occur if the thread "
-			"blocked waiting for mutex.");
-	else if (status == EPERM)
-		error_exit("The current thread does not hold a lock on mutex.");
-	else if (status == ENOMEM)
-		error_exit("The process cannot allocate enough memory"
-			" to create another mutex.");
-	else if (status == EBUSY)
-		error_exit("Mutex is locked");
-}
-
 void	ft_threads(pthread_t *thread, void *(*foo)(void *),
 		void *data, t_opcode opcode)
 {
 	if (opcode == CREATE)
-		ft_threads_error(pthread_create(thread, NULL, foo, data), opcode);
+		pthread_create(thread, NULL, foo, data);
 	else if (opcode == JOIN)
-		ft_threads_error(pthread_join(*thread, NULL), opcode);
+		pthread_join(*thread, NULL);
 	else if (opcode == DETACH)
-		ft_threads_error(pthread_detach(*thread), opcode);
+		pthread_detach(*thread);
 	else
 		error_msg(" 🚨 Wrong opcode for thread_handle:"
 			" use <CREATE> <JOIN> <DETACH> 🚨\n");
@@ -79,13 +29,13 @@ void	ft_threads(pthread_t *thread, void *(*foo)(void *),
 void	ft_mutex(t_mutex *mutex, t_opcode opcode)
 {
 	if (opcode == LOCK)
-		ft_mutex_error(pthread_mutex_lock(mutex), opcode);
+		pthread_mutex_lock(mutex);
 	else if (opcode == UNLOCK)
-		ft_mutex_error(pthread_mutex_unlock(mutex), opcode);
+		pthread_mutex_unlock(mutex);
 	else if (opcode == INIT)
-		ft_mutex_error(pthread_mutex_init(mutex, NULL), opcode);
+		pthread_mutex_init(mutex, NULL);
 	else if (opcode == DESTROY)
-		ft_mutex_error(pthread_mutex_destroy(mutex), opcode);
+		pthread_mutex_destroy(mutex);
 	else
 		error_msg("🚨 Wrong opcode for mutex handle "
 			" use <LOCK> <UNLOCK> <INIT> <DESTROY> 🚨\n");

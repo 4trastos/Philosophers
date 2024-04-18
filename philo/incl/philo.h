@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:18:47 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/15 19:57:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:36:25 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@
 #  define DEBUG_MODE 0
 # endif
 
+typedef pthread_mutex_t	t_mutex;
+typedef struct s_table	t_table;
+
 typedef enum e_status
 {
 	EATING,
@@ -76,9 +79,6 @@ typedef enum e_time_code
 	MILLISECOND,
 	MICROSECOND,
 }	t_time_code;
-
-typedef pthread_mutex_t	t_mutex;
-typedef struct s_table	t_table;
 
 typedef struct s_fork
 {
@@ -115,6 +115,8 @@ struct s_table
 	t_philo			*philos;
 	t_mutex			table_mutex;
 	t_mutex			write_mutex;
+	t_mutex			dead_mutex;
+	t_mutex			meals_counter_mutex;
 };	
 
 //*** INIT ****
@@ -161,7 +163,7 @@ long				ft_atoi(char *str);
 
 //*** SYNCHROS ****
 
-long				get_time(int time_code);
+long				world_clock(int time_code);
 void				synchro_philos(t_philo *philo);
 
 //*** ROUTINE ****
@@ -189,12 +191,12 @@ void				set_bool(t_mutex *mutex, bool *dest, bool value);
 
 void				wait_all_threads(t_table *table);
 void				set_long(t_mutex *mutex, long *dest, long value);
-void				increase_threads(t_mutex *mutex, long *value);
+void				numbers_threads(t_mutex *mutex, long *value);
 bool				all_threads_running(t_mutex *muex, long *threads, long philo_number);
 
 //*** WRITE ****
 
-void				write_status(t_philo_status status, t_philo *philo, bool debug);
+void				write_status(t_philo_status status, t_philo *philo);
 void    			write_status_debug(t_philo_status status, t_philo *philo, long time_elapsed);
 
 #endif
