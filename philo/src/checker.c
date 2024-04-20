@@ -6,16 +6,11 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:39:37 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/18 19:57:40 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:30:54 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-bool	is_space(char c)
-{
-	return ((c >= 9 && c <= 13) || c == 32);
-}
 
 int	ft_is_number(char c)
 {
@@ -48,34 +43,35 @@ int	ft_checker(char **argv)
 	return (1);
 }
 
-int	ft_checkerphilo(char **argv, int argc)
+int	ft_checkerphilo_b(char **argv, int argc)
 {
 	int	numb;
 
+	numb = ft_atoi(argv[1]);
+	if (numb == 0)
+		return (0);
+	numb = ft_atoi(argv[2]);
+	if (numb < 60)
+		return (0);
+	numb = ft_atoi(argv[3]);
+	if (numb < 60)
+		return (0);
+	numb = ft_atoi(argv[4]);
+	if (numb < 60)
+		return (0);
 	if (argc == 6)
 	{
-		if ((numb = ft_atoi(argv[5]) <= 0))
+		numb = ft_atoi(argv[5]);
+		if ((numb <= 0))
 			return (0);
-		return (1);
 	}
-	else
-	{
-		if ((numb = ft_atoi(argv[1]) == 0))
-			return (0);
-		if ((numb = ft_atoi(argv[2]) < 60))
-			return (0);
-		if ((numb = ft_atoi(argv[3]) < 60))
-			return (0);
-		if ((numb = ft_atoi(argv[4]) < 60))
-			return (0);
-		return (1);
-	}
+	return (1);
 }
 
 void	parse_input(char **argv, int argc)
 {
 	if (!(ft_checker(argv)))
 		error_msg("🚨 The Invalid characters! 🚨\n");
-	if (!(ft_checkerphilo(argv, argc)))
+	if (!(ft_checkerphilo_b(argv, argc)))
 		error_msg("🚨 The input is not a correct digit! 🚨\n");
 }

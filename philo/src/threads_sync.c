@@ -6,15 +6,15 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:45:03 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/18 15:13:16 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:56:42 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void    wait_all_threads(t_table *table)
+void	wait_all_threads(t_table *table)
 {
-    while (!get_bool(&table->table_mutex, &table->all_threads_ready))
+	while (!get_bool(&table->table_mutex, &table->all_threads_ready))
 		;
 }
 
@@ -26,7 +26,7 @@ void	set_long(t_mutex *mutex, long *dest, long value)
 }
 
 void	numbers_threads(t_mutex *mutex, long *value)
-{	
+{
 	ft_mutex(mutex, LOCK);
 	(*value)++;
 	ft_mutex(mutex, UNLOCK);

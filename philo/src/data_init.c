@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:52:16 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/18 18:38:46 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:05:07 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	assign_forks(t_philo *philo, t_fork *forks, int id)
 	{
 		philo->first_fork = &forks[id];
 		philo->second_fork = &forks[(id + 1) % philo_number];
-	}	
+	}
 }
 
 void	data_init(t_table *table, int argc, char **argv)
@@ -48,7 +48,7 @@ void	data_init(t_table *table, int argc, char **argv)
 		ft_mutex(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
 	}
-	if (argc == 6)
+	if (argc == 6 && table->philos_number > 1)
 		table->nbr_limit_meals = ft_atoi(argv[5]);
 	else
 		table->nbr_limit_meals = -1;
@@ -62,7 +62,6 @@ void	philo_init(t_table *table)
 
 	i = -1;
 	ft_mutex(&table->dead_mutex, INIT);
-	ft_mutex(&table->meals_counter_mutex, INIT);
 	while (++i < table->philos_number)
 	{
 		philo = table->philos + i;
@@ -71,6 +70,7 @@ void	philo_init(t_table *table)
 		philo->meals_counter = 0;
 		table->threads_running_nbr = 0;
 		ft_mutex(&philo->philo_mutex, INIT);
+		ft_mutex(&philo->meals_counter_mutex, INIT);
 		philo->table = table;
 		assign_forks(philo, table->forks, i);
 	}

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:18:47 by davgalle          #+#    #+#             */
-/*   Updated: 2024/04/18 17:36:25 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:05:10 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,6 @@
 # include <errno.h>
 # include <time.h>
 
-/*
- * PHILO
- *
- * ./philo 5 800 200 200 [5]
-*/
-
-/*
- * 1e4 = 10 Milisegundos.
- * 1e3 = 1 Milisegundo.
- * 
-*/
-
 # define RST    "\033[0m"      /* Reset to default color */
 # define RED	"\033[1;31m"   /* Bold Red */
 # define G      "\033[1;32m"   /* Bold Green */
@@ -44,10 +32,6 @@
 # define M      "\033[1;35m"   /* Bold Magenta */
 # define C      "\033[1;36m"   /* Bold Cyan */
 # define W      "\033[1;37m"   /* Bold White */
-
-# ifndef DEBUG_MODE
-#  define DEBUG_MODE 0
-# endif
 
 typedef pthread_mutex_t	t_mutex;
 typedef struct s_table	t_table;
@@ -96,6 +80,7 @@ typedef struct s_philo
 	t_fork			*first_fork;
 	t_fork			*second_fork;
 	t_mutex			philo_mutex;
+	t_mutex			meals_counter_mutex;
 	t_table			*table;
 }	t_philo;
 
@@ -116,7 +101,6 @@ struct s_table
 	t_mutex			table_mutex;
 	t_mutex			write_mutex;
 	t_mutex			dead_mutex;
-	t_mutex			meals_counter_mutex;
 };	
 
 //*** INIT ****
@@ -127,7 +111,6 @@ int					main(int argc, char **argv);
 
 void				ft_error_msg(char *str, t_philo *a);
 void				error_exit(const char *error);
-void				parse_input(char **argv, int argc);
 void				error_msg(char *str);
 void				ft_mutex_error(int status, t_opcode opcode);
 void				ft_threads_error(int status, t_opcode opcode);
@@ -137,9 +120,10 @@ void				clean_all(t_table *table);
 
 int					ft_checker(char **argv);
 int					ft_is_numer(char c);
-int					ft_checkerphilo(char **argv, int argc);
+void				parse_input(char **argv, int argc);
+int					ft_checkerphilo_b(char **argv, int argc);
 bool				is_space(char c);
-long    			get_long(t_mutex *mutex, long *value);
+long				get_long(t_mutex *mutex, long *value);
 
 //*** PHILO ****
 
@@ -170,7 +154,7 @@ void				synchro_philos(t_philo *philo);
 
 void				*philo_routine(void *data);
 void				philo_is_eating(t_philo *philo);
-void				philo_is_sleeping(long sleep_time, t_table *table);
+void				time_counter(long sleep_time, t_table *table);
 void				philo_is_thinking(t_philo *philo, bool pre_routine);
 void				*monitor_eating(void *data);
 
@@ -184,7 +168,7 @@ void				ft_threads(pthread_t *thread, void *(*foo)(void *),
 //*** BOOL ****
 
 bool				get_bool(t_mutex *mutex, bool *value);
-bool    			routine_finished(t_table *table);
+bool				routine_finished(t_table *table);
 void				set_bool(t_mutex *mutex, bool *dest, bool value);
 
 //*** THREADS ****
@@ -192,11 +176,11 @@ void				set_bool(t_mutex *mutex, bool *dest, bool value);
 void				wait_all_threads(t_table *table);
 void				set_long(t_mutex *mutex, long *dest, long value);
 void				numbers_threads(t_mutex *mutex, long *value);
-bool				all_threads_running(t_mutex *muex, long *threads, long philo_number);
+bool				all_threads_running(t_mutex *muex, long *threads,
+						long philo_number);
 
 //*** WRITE ****
 
 void				write_status(t_philo_status status, t_philo *philo);
-void    			write_status_debug(t_philo_status status, t_philo *philo, long time_elapsed);
 
 #endif
