@@ -54,9 +54,6 @@ void	*monitor_eating(void *data)
 	t_table	*table;
 
 	table = (t_table *)data;
-	while (!all_threads_running(&table->table_mutex,
-			&table->threads_running_nbr, table->philos_number))
-		;
 	while (!routine_finished(table))
 	{
 		i = -1;
