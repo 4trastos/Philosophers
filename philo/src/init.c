@@ -109,7 +109,6 @@ void	eat_start(t_table *table)
 		ft_threads(&table->philos[i].thread_id, philo_routine,
 			&table->philos[i], CREATE);
 		numbers_threads(&table->table_mutex, &table->threads_running_nbr);
-		synchro_philos(&table->philos[i]);
 	}
 	ft_threads(&table->monitor, monitor_eating, table, CREATE);
 	set_bool(&table->table_mutex, &table->all_threads_ready, true);
