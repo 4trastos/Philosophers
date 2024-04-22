@@ -1,6 +1,6 @@
 # Uso de Hilos y Mutex en C
 
-Este repositorio contiene un ejemplo básico de cómo utilizar hilos y mutex en un programa escrito en C. El código demuestra cómo implementar hilos para realizar operaciones concurrentes y cómo utilizar mutex para sincronizar el acceso a recursos compartidos entre los hilos.
+Este repositorio contiene un ejemplo básico de cómo utilizar hilos y mutex en un programa escrito en C dentro del directorio `test`. El código demuestra cómo implementar hilos para realizar operaciones concurrentes y cómo utilizar mutex para sincronizar el acceso a recursos compartidos entre los hilos.
 
 ## Código
 
