@@ -20,7 +20,7 @@ Para compilar el código, simplemente ejecuta el comando `gcc` seguido del nombr
 gcc -o threads_mutex threads_mutex.c -lpthread
 
 ```
-# Hola de Corrección 
+# Hoja de Corrección 
 
 //**** PHILO CODE ****
 
