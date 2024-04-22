@@ -9,7 +9,7 @@ El código consiste en dos funciones de rutina para los hilos, `thread1_routine`
 ### Pruebas
 
 Para demostrar que sudece si NO utilizamos la función mutex y varios hilos acceden a la misma variable, tienes que comentar `pthread_mutex_lock(&mutex)` y `pthread_mutex_unlock(&mutex)`.
-La explicación porque esto sucede la encontrarás creando un archico en emsambador ejecuntando con `-S`.
+La explicación porque esto sucede la encontrarás creando un archico en ensamblador ejecuntando con `-S`.
 
 
 #### Compilación y Ejecución
